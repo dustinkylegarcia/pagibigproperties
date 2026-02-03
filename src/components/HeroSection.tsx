@@ -18,12 +18,12 @@ export function HeroSection() {
     }
   };
 
-  return (
+   return (
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image */}
+      {/* Background - Keep but consider video or gradient overlay variation */}
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
@@ -33,83 +33,59 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 container-custom pt-24 pb-16">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary border border-primary/20 mb-8"
-          >
-            <MapPin className="h-4 w-4" />
-            <span className="text-sm font-medium">Trusted across the Philippines</span>
-          </motion.div>
-
-          {/* Headline */}
+        <div className="max-w-5xl mx-auto">
+          {/* REMOVE BADGE */}
+          
+          {/* Headline - Integrated & Bold */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="heading-xl text-foreground mb-6"
+            transition={{ duration: 0.6 }}
+            className="heading-xl text-foreground mb-4 leading-tight"
           >
-            {heroContent.headline.split(' ').map((word, index) => (
-              <span
-                key={index}
-                className={
-                  word === 'Dream' || word === 'Home'
-                    ? 'text-gradient'
-                    : ''
-                }
-              >
-                {word}{' '}
-              </span>
-            ))}
+            Find Your <span className="text-gradient">Perfect Home</span>
+            <div className="text-lg font-normal text-muted-foreground mt-2">
+              Trusted by 15,000+ Filipino families across the Philippines
+            </div>
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Subheadline - More focused */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto text-balance"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-lg text-muted-foreground mb-12 max-w-2xl"
           >
-            {heroContent.subheadline}
+            From modern condos in Metro Manila to beachfront villas in Cebu. Transparent pricing, expert guidance, and properties verified just for you.
           </motion.p>
 
-          {/* Search Bar */}
+          {/* Search Bar - Simplified */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-3 p-3 bg-card rounded-2xl shadow-xl border border-border mb-10"
+          >
+            <div className="flex-1 flex items-center gap-3 px-4">
+              <Search className="h-5 w-5 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Location, property type..."
+                className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
+              />
+            </div>
+            <Button onClick={handleScrollToProperties} className="btn-hero whitespace-nowrap">
+              {heroContent.primaryCTA}
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          </motion.div>
+
+          {/* Secondary CTA */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="max-w-2xl mx-auto mb-10"
-          >
-            <div className="flex flex-col sm:flex-row gap-3 p-3 bg-card rounded-2xl shadow-xl border border-border">
-              <div className="flex-1 flex items-center gap-3 px-4">
-                <Search className="h-5 w-5 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search by location, property type..."
-                  className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
-                />
-              </div>
-              <Button
-                onClick={handleScrollToProperties}
-                className="btn-hero whitespace-nowrap"
-              >
-                {heroContent.primaryCTA}
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-            </div>
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap justify-center gap-4 mb-16"
           >
             <Button
               variant="outline"
@@ -121,46 +97,9 @@ export function HeroSection() {
             </Button>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
-          >
-            {heroContent.stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-gradient mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+          {/* REMOVE Stats Grid & Scroll Indicator */}
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-foreground/20 flex items-start justify-center p-2"
-        >
-          <div className="w-1 h-2 rounded-full bg-primary" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

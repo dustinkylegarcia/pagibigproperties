@@ -48,6 +48,7 @@ export interface Agent {
   specializations: string[];
   properties?: string[]; // property IDs
   social?: {
+    phone: string;
     facebook?: string;
     instagram?: string;
     linkedin?: string;

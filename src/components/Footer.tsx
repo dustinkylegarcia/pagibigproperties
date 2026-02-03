@@ -1,100 +1,65 @@
 import { motion } from 'framer-motion';
 import { Facebook, Instagram, Twitter, Linkedin, Youtube, MapPin, Phone, Mail, ArrowUp } from 'lucide-react';
 import { siteConfig, footerContent } from '@/data/siteContent';
-
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-secondary text-secondary-foreground">
       {/* Main Footer */}
-      <div className="container-custom py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand Column */}
-          <div className="lg:col-span-1">
-            <a href="#hero" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">H</span>
+      <div className="container-custom py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+          {/* Brand Column - More Prominent */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-xl">H</span>
               </div>
-              <span className="font-display text-xl font-bold">{siteConfig.name}</span>
-            </a>
-            <p className="text-secondary-foreground/70 mb-6 leading-relaxed">
+              <div>
+                <h3 className="font-display text-xl font-bold text-secondary-foreground">
+                  {siteConfig.name}
+                </h3>
+                <p className="text-xs text-secondary-foreground/60">
+                  Your Perfect Home Awaits
+                </p>
+              </div>
+            </div>
+            
+            <p className="text-secondary-foreground/70 text-sm leading-relaxed mb-6 max-w-xs">
               {footerContent.description}
             </p>
-            {/* Social Links */}
+
+            {/* Social Links - Visual Grid */}
             <div className="flex gap-3">
-              {siteConfig.social.facebook && (
+              {[
+                { Icon: Facebook, href: siteConfig.social.facebook },
+                { Icon: Instagram, href: siteConfig.social.instagram },
+                { Icon: Twitter, href: siteConfig.social.twitter },
+                { Icon: Linkedin, href: siteConfig.social.linkedin },
+              ].map(({ Icon, href }, idx) => (
                 <a
-                  href={siteConfig.social.facebook}
+                  key={idx}
+                  href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="Facebook"
+                  className="w-10 h-10 rounded-lg bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                 >
-                  <Facebook className="h-5 w-5" />
+                  <Icon className="h-5 w-5" />
                 </a>
-              )}
-              {siteConfig.social.instagram && (
-                <a
-                  href={siteConfig.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="Instagram"
-                >
-                  <Instagram className="h-5 w-5" />
-                </a>
-              )}
-              {siteConfig.social.twitter && (
-                <a
-                  href={siteConfig.social.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="h-5 w-5" />
-                </a>
-              )}
-              {siteConfig.social.linkedin && (
-                <a
-                  href={siteConfig.social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </a>
-              )}
-              {siteConfig.social.youtube && (
-                <a
-                  href={siteConfig.social.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="YouTube"
-                >
-                  <Youtube className="h-5 w-5" />
-                </a>
-              )}
+              ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-lg mb-6">Quick Links</h4>
-            <ul className="space-y-3">
-              {footerContent.quickLinks.map((link) => (
+            <h4 className="font-semibold text-secondary-foreground mb-4">
+              Properties
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {footerContent.quickLinks.slice(0, 4).map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-secondary-foreground/70 hover:text-primary transition-colors"
-                  >
+                  <a href={link.href} className="text-secondary-foreground/70 hover:text-primary transition-colors">
                     {link.label}
                   </a>
                 </li>
@@ -102,86 +67,64 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Locations */}
+          {/* Company */}
           <div>
-            <h4 className="font-bold text-lg mb-6">We Serve</h4>
-            <ul className="space-y-3">
-              {footerContent.locations.map((location) => (
-                <li key={location}>
-                  <span className="text-secondary-foreground/70 flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-primary" />
-                    {location}
-                  </span>
+            <h4 className="font-semibold text-secondary-foreground mb-4">
+              Company
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {[
+                { label: 'About Us', href: '#' },
+                { label: 'Our Team', href: '#team' },
+                { label: 'Testimonials', href: '#testimonials' },
+                { label: 'Contact', href: '#contact' },
+              ].map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="text-secondary-foreground/70 hover:text-primary transition-colors">
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact Quick Links */}
           <div>
-            <h4 className="font-bold text-lg mb-6">Contact Us</h4>
-            <ul className="space-y-4">
+            <h4 className="font-semibold text-secondary-foreground mb-4">
+              Get in Touch
+            </h4>
+            <ul className="space-y-3 text-sm">
               <li>
-                <a
-                  href={`tel:${siteConfig.contact.phone}`}
-                  className="text-secondary-foreground/70 hover:text-primary transition-colors flex items-center gap-3"
-                >
-                  <Phone className="h-5 w-5 text-primary" />
-                  {siteConfig.contact.phone}
+                <a href={`mailto:${siteConfig.contact.email}`} className="flex items-start gap-2 text-secondary-foreground/70 hover:text-primary transition-colors">
+                  <Mail className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                  <span className="break-all">{siteConfig.contact.email}</span>
                 </a>
               </li>
               <li>
-                <a
-                  href={`mailto:${siteConfig.contact.email}`}
-                  className="text-secondary-foreground/70 hover:text-primary transition-colors flex items-center gap-3"
-                >
-                  <Mail className="h-5 w-5 text-primary" />
-                  {siteConfig.contact.email}
+                <a href={`tel:${siteConfig.contact.phone}`} className="flex items-start gap-2 text-secondary-foreground/70 hover:text-primary transition-colors">
+                  <Phone className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                  <span>{siteConfig.contact.phone}</span>
                 </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-secondary-foreground/70 text-sm">
-                  {siteConfig.contact.address}
-                </span>
               </li>
             </ul>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-secondary-foreground/10">
-        <div className="container-custom py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-secondary-foreground/60 text-sm text-center md:text-left">
-              © {currentYear} {siteConfig.name}. All rights reserved.
-            </p>
-            
-            {/* Legal Links */}
-            <div className="flex items-center gap-6">
-              {footerContent.legal.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm text-secondary-foreground/60 hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+        {/* Divider */}
+        <div className="w-full h-px bg-secondary-foreground/10 mb-6" />
 
-            {/* Back to Top */}
-            <motion.button
-              onClick={scrollToTop}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground hover:bg-primary/90 transition-colors"
-              aria-label="Back to top"
-            >
-              <ArrowUp className="h-5 w-5" />
-            </motion.button>
-          </div>
+        {/* Bottom Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-secondary-foreground/60">
+            © {currentYear} {siteConfig.name}. All rights reserved.
+          </p>
+          <motion.button
+            onClick={scrollToTop}
+            whileHover={{ scale: 1.1 }}
+            className="w-10 h-10 rounded-lg bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            <ArrowUp className="h-5 w-5" />
+          </motion.button>
         </div>
       </div>
     </footer>
